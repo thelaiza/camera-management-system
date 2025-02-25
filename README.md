@@ -26,6 +26,6 @@ Este projeto tem como objetivo o desenvolvimento de um **Sistema de Monitorament
 - **Backend**: Python com Django
 - **Banco de Dados**: MySQL (usando MySQL Workbench para gerenciamento)
 - **Autenticação**: JWT (JSON Web Tokens) para controle de sessão e autenticação de usuários
-- **Outros**: Git, GitHub, API RESTful para comunicação entre frontend e backend
+- **Outros**: Git, GitHub, Insomnia e Django REST Framework (extensão do Django para a criação de APIs RESTful) para comunicação entre frontend e backend
 
 
