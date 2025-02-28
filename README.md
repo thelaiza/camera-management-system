@@ -12,13 +12,6 @@ Este projeto tem como objetivo o desenvolvimento de um **Sistema de Monitorament
 - **Visualização de Câmeras por Usuário**: Implementar uma funcionalidade que permita que os usuários visualizem quantas câmeras estão associadas ao seu login.
 - **Autenticação de Usuários**: Garantir que cada usuário tenha acesso restrito apenas às câmeras que ele cadastrou, por meio de um sistema de login seguro.
 
-## Funcionalidades Previstas
-
-- **Cadastro de Câmeras**: Interface para o usuário cadastrar informações detalhadas sobre as câmeras.
-- **Remoção de Câmeras**: Funcionalidade para excluir câmeras do sistema de maneira simples e rápida.
-- **Logs de Transações**: Sistema de registro de atividades (como adição e remoção de câmeras), com acompanhamento de data, hora e usuário.
-- **Visualização de Câmeras**: Usuários poderão consultar a quantidade de câmeras cadastradas em sua conta e acessar suas informações.
-- **Autenticação de Usuário**: Sistema de autenticação usando **JWT** (JSON Web Tokens) para garantir que apenas usuários autenticados possam acessar as funcionalidades de cadastro e remoção de câmeras.
 
 ## Tecnologias a Serem Utilizadas
 
