@@ -46,3 +46,27 @@ Este projeto tem como objetivo o desenvolvimento de um **Sistema de Monitorament
 - Facilidade de manutenção: Todo o código está concentrado em um único repositório, tornando a depuração e a atualização mais simples
 - Menor sobrecarga: Como o sistema não precisa escalar para múltiplos servidores ou serviços independentes, um monólito é mais eficiente nesse projeto
 - Tempo de desenvolvimento reduzido: Como o foco é apresentar um sistema funcional, essa abordagem permite um desenvolvimento mais rápido
+
+
+Atividade	Responsável	Status	Prazo
+Levantamento de requisitos	[Seu Nome]	Concluído	[Data]
+Definição da arquitetura	[Seu Nome]	Concluído	[Data]
+Configuração do repositório GitHub	[Seu Nome]	Concluído	[Data]
+Desenvolvimento do backend (Django)	[Seu Nome]	Em andamento	[Data]
+Desenvolvimento do frontend (React)	[Seu Nome]	Em andamento	[Data]
+Integração frontend e backend	[Seu Nome]	Pendente	[Data]
+Implementação do banco de dados	[Seu Nome]	Em andamento	[Data]
+Testes e ajustes finais	[Seu Nome]	Pendente	[Data]
+Documentação do projeto	[Seu Nome]	Pendente	[Data]
+Apresentação do projeto	[Seu Nome]	Pendente	[Data]
+
+| Atividade                     | Responsável  | Status       | Prazo       |
+|-------------------------------|--------------|--------------|--------------|
+| Levantamento de requisitos	  | Laíza        | Concluído    | 11/03/2025   |
+| Definição da arquitetura      | Laíza        | Concluído    | 11/03/2025   |
+| Configuração do repositório   | Laíza        | Concluído    | 25/02/2025   |
+| Criação do banco              | Laíza        | Em andamento | 31/03/2025   |
+| Desenvolvimento do backend    | Laíza        | Em andamento | 30/04/2025   |
+| Desenvolvimento do frontend   | Laíza        | Pendente     | 15/05/2025   |
+| Testes e ajustes finais       | Laíza        | Pendente     | 30/05/2025   |
+
