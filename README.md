@@ -60,13 +60,13 @@ Testes e ajustes finais	[Seu Nome]	Pendente	[Data]
 Documentação do projeto	[Seu Nome]	Pendente	[Data]
 Apresentação do projeto	[Seu Nome]	Pendente	[Data]
 
-| Atividade                     | Responsável  | Status       | Prazo       |
-|-------------------------------|--------------|--------------|--------------|
-| Levantamento de requisitos	  | Laíza        | Concluído    | 11/03/2025   |
-| Definição da arquitetura      | Laíza        | Concluído    | 11/03/2025   |
-| Configuração do repositório   | Laíza        | Concluído    | 25/02/2025   |
-| Criação do banco              | Laíza        | Em andamento | 31/03/2025   |
-| Desenvolvimento do backend    | Laíza        | Em andamento | 30/04/2025   |
-| Desenvolvimento do frontend   | Laíza        | Pendente     | 15/05/2025   |
-| Testes e ajustes finais       | Laíza        | Pendente     | 30/05/2025   |
+| Atividade                     | Responsável  | Prazo       |
+|-------------------------------|--------------|--------------|
+| Levantamento de requisitos	  | Laíza        | 11/03/2025   |
+| Definição da arquitetura      | Laíza        | 11/03/2025   |
+| Configuração do repositório   | Laíza        | 25/02/2025   |
+| Criação do banco              | Laíza        | 31/03/2025   |
+| Desenvolvimento do backend    | Laíza        | 30/04/2025   |
+| Desenvolvimento do frontend   | Laíza        | 15/05/2025   |
+| Testes e ajustes finais       | Laíza        | 30/05/2025   |
 
