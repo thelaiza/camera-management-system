@@ -23,25 +23,25 @@ Este projeto tem como objetivo o desenvolvimento de um **Sistema de Monitorament
 
 ## Requisitos funcionais e não funcionais 
 
--RF1: O sistema deve permitir o cadastro de novas câmeras
--RF2: O sistema deve listar todas as câmeras cadastradas
--RF3: O sistema deve permitir a atualização das informações das câmeras
--RF4: O sistema deve permitir a remoção de câmeras cadastradas
--RF5: O sistema deve permitir o cadastro de usuários
--RF6: O sistema deve permitir que os usuários realizem login
--RF7: O sistema deve listar todos os usuários cadastrados
--RF8: O sistema deve permitir a edição das informações dos usuários
--RF9: O sistema deve permitir a exclusão de usuários
--RF10: O sistema deve registrar logs de eventos e ações realizadas
--RF11: O sistema deve permitir a visualização do histórico de alterações
+- RF1: O sistema deve permitir o cadastro de novas câmeras
+- RF2: O sistema deve listar todas as câmeras cadastradas
+- RF3: O sistema deve permitir a atualização das informações das câmeras
+- RF4: O sistema deve permitir a remoção de câmeras cadastradas
+- RF5: O sistema deve permitir o cadastro de usuários
+- RF6: O sistema deve permitir que os usuários realizem login
+- RF7: O sistema deve listar todos os usuários cadastrados
+- RF8: O sistema deve permitir a edição das informações dos usuários
+- RF9: O sistema deve permitir a exclusão de usuários
+- RF10: O sistema deve registrar logs de eventos e ações realizadas
+- RF11: O sistema deve permitir a visualização do histórico de alterações
 
--RNF1: O sistema deve permitir múltiplos usuários simultâneos sem perda de desempenho significativo
--RNF2: O sistema deve armazenar logs de atividades para auditoria e rastreamento de ações
--RNF3: O sistema deve permitir a recuperação de dados em caso de falhas ou erros críticos
--RNF4: O sistema deve suportar autenticação e controle de permissões para diferentes tipos de usuários
--RNF5: O sistema deve oferecer uma interface responsiva para funcionamento em diferentes tamanhos de tela
+- RNF1: O sistema deve permitir múltiplos usuários simultâneos sem perda de desempenho significativo
+- RNF2: O sistema deve armazenar logs de atividades para auditoria e rastreamento de ações
+- RNF3: O sistema deve permitir a recuperação de dados em caso de falhas ou erros críticos
+- RNF4: O sistema deve suportar autenticação e controle de permissões para diferentes tipos de usuários
+- RNF5: O sistema deve oferecer uma interface responsiva para funcionamento em diferentes tamanhos de tela
 
-*O projeto segue uma arquitetura monolítica, onde o back-end e o front-end se comunicam diretamente, sem a necessidade de serviços independentes.*
+**O projeto segue uma arquitetura monolítica, onde o back-end e o front-end se comunicam diretamente, sem a necessidade de serviços independentes.**
 - Simplicidade na implementação: Não exige a complexidade de microserviços
 - Facilidade de manutenção: Todo o código está concentrado em um único repositório, tornando a depuração e a atualização mais simples
 - Menor sobrecarga: Como o sistema não precisa escalar para múltiplos servidores ou serviços independentes, um monólito é mais eficiente nesse projeto
