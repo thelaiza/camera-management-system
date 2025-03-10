@@ -13,21 +13,6 @@ Este projeto tem como objetivo o desenvolvimento de um **Sistema de Monitorament
 - **Autenticação de Usuários**: Garantir que cada usuário tenha acesso restrito apenas às câmeras que ele cadastrou, por meio de um sistema de login seguro.
 
 
-## Tecnologias a serem utilizadas
-
-- **Frontend**: React
-- **Backend**: Python com Django
-- **Banco de Dados**: MySQL (usando MySQL Workbench para gerenciamento)
-- **Autenticação**: JWT (JSON Web Tokens) para controle de sessão e autenticação de usuários
-- **Outros**: Git, GitHub, Insomnia e Django REST Framework (extensão do Django para a criação de APIs RESTful) para comunicação entre frontend e backend
-
-
-**O projeto segue uma arquitetura monolítica, onde o back-end e o front-end se comunicam diretamente, sem a necessidade de serviços independentes.**
-- Simplicidade na implementação: Não exige a complexidade de microserviços
-- Facilidade de manutenção: Todo o código está concentrado em um único repositório, tornando a depuração e a atualização mais simples
-- Menor sobrecarga: Como o sistema não precisa escalar para múltiplos servidores ou serviços independentes, um monólito é mais eficiente nesse projeto
-- Tempo de desenvolvimento reduzido: Como o foco é apresentar um sistema funcional, essa abordagem permite um desenvolvimento mais rápido
-
 
 | Atividade                     | Responsável  | Prazo       |
 |-------------------------------|--------------|--------------|
