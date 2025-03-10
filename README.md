@@ -48,18 +48,6 @@ Este projeto tem como objetivo o desenvolvimento de um **Sistema de Monitorament
 - Tempo de desenvolvimento reduzido: Como o foco é apresentar um sistema funcional, essa abordagem permite um desenvolvimento mais rápido
 
 
-Atividade	Responsável	Status	Prazo
-Levantamento de requisitos	[Seu Nome]	Concluído	[Data]
-Definição da arquitetura	[Seu Nome]	Concluído	[Data]
-Configuração do repositório GitHub	[Seu Nome]	Concluído	[Data]
-Desenvolvimento do backend (Django)	[Seu Nome]	Em andamento	[Data]
-Desenvolvimento do frontend (React)	[Seu Nome]	Em andamento	[Data]
-Integração frontend e backend	[Seu Nome]	Pendente	[Data]
-Implementação do banco de dados	[Seu Nome]	Em andamento	[Data]
-Testes e ajustes finais	[Seu Nome]	Pendente	[Data]
-Documentação do projeto	[Seu Nome]	Pendente	[Data]
-Apresentação do projeto	[Seu Nome]	Pendente	[Data]
-
 | Atividade                     | Responsável  | Prazo       |
 |-------------------------------|--------------|--------------|
 | Levantamento de requisitos	  | Laíza        | 11/03/2025   |
