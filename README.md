@@ -13,14 +13,3 @@ Este projeto tem como objetivo o desenvolvimento de um **Sistema de Monitorament
 - **Autenticação de Usuários**: Garantir que cada usuário tenha acesso restrito apenas às câmeras que ele cadastrou, por meio de um sistema de login seguro.
 
 
-
-| Atividade                     | Responsável  | Prazo       |
-|-------------------------------|--------------|--------------|
-| Levantamento de requisitos	  | Laíza        | 11/03/2025   |
-| Definição da arquitetura      | Laíza        | 11/03/2025   |
-| Configuração do repositório   | Laíza        | 25/02/2025   |
-| Criação do banco              | Laíza        | 31/03/2025   |
-| Desenvolvimento do backend    | Laíza        | 30/04/2025   |
-| Desenvolvimento do frontend   | Laíza        | 15/05/2025   |
-| Testes e ajustes finais       | Laíza        | 30/05/2025   |
-
