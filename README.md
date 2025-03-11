@@ -14,4 +14,4 @@ O sistema registrará as ações realizadas, como a adição e remoção de câm
 
 ## Mais detalhes sobre o projeto
 Para mais informações sobre requisitos, estratégias de desenvolvimento e plano de trabalho, acesse a **Wiki do projeto**:  
-🔗 [Wiki do Sistema de Monitoramento de Câmeras](https://github.com/thelaiza/camera-management-system.wiki.git)  
+🔗 [Wiki do Sistema de Monitoramento de Câmeras](https://github.com/thelaiza/camera-management-system/wiki)  
