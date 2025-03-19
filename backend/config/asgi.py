@@ -1,3 +1,5 @@
+# Para WebSockets e Async (opcional)
+
 """
 ASGI config for backend project.
 

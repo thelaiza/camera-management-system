@@ -1,3 +1,5 @@
+ # Define as rotas do backend (equivalente ao Express Router)
+
 """
 URL configuration for backend project.
 

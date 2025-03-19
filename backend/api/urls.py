@@ -1,0 +1,1 @@
+# Rotas específicas dessa API (tipo os routes do Express)

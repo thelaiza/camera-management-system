@@ -1,3 +1,5 @@
+# Configuração do projeto (como um .env + config.js no Node)
+
 """
 Django settings for backend project.
 

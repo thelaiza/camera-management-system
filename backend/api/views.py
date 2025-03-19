@@ -1,0 +1,1 @@
+# Lógica de requisições HTTP (tipo os controllers do Express)
