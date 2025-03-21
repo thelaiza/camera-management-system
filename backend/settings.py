@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+    'backend.api',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,12 +80,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Usando MySQL
-        'NAME': 'nome_do_banco',  # Nome do seu banco de dados
-        'USER': 'seu_usuario',  # Seu usuário do MySQL
-        'PASSWORD': 'sua_senha',  # Sua senha do MySQL
-        'HOST': 'localhost',  # Hospedagem do banco de dados (geralmente localhost)
-        'PORT': '3306',  # Porta padrão do MySQL
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sistema_cameras',  
+        'USER': 'root',  
+        'PASSWORD': '12345', 
+        'HOST': 'localhost', 
+        'PORT': '3306', 
     }
 }
 

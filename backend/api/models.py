@@ -1,1 +1,0 @@
-# Definição das tabelas (tipo os models do Sequelize/Mongoose)
