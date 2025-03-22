@@ -1,5 +1,3 @@
-# Configuração do projeto (como um .env + config.js no Node)
-
 """
 Django settings for backend project.
 
@@ -74,9 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
