@@ -1,0 +1,17 @@
+{
+  "name": "camera-management-system",
+  "version": "1.0.0",
+  "description": "Este projeto tem como objetivo o desenvolvimento de um **Sistema de Monitoramento de Câmeras**, permitindo aos usuários gerenciar suas câmeras de segurança por meio de funcionalidades como cadastro, remoção e visualização de logs de transações.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "camera-management-system": "file:",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
