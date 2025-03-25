@@ -1,30 +1,32 @@
-# Lógica de requisições HTTP (tipo os controllers do Express)
-
 from django.http import JsonResponse
-from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
+# API para verificar se o backend está rodando
+def api_home(request):
+    return JsonResponse({"message": "API está funcionando!"}, status=200)
+
+# Rota para listar câmeras
 def listar_cameras(request):
-    return JsonResponse({"message": "Listando câmeras"})
+    return JsonResponse({"message": "Listando câmeras"}, status=200)
 
+# Rota para listar usuários
 def listar_usuarios(request):
-    return JsonResponse({"message": "Listando usuários"})
+    return JsonResponse({"message": "Listando usuários"}, status=200)
 
-def home(request):
-    return HttpResponse("Bem-vindo ao CamIA Manager!")
-
-from django.shortcuts import render
-
-def home(request):
-    return render(request, "home.html")
-
+# Endpoint de login via API
 @api_view(["POST"])
 def api_login(request):
     username = request.data.get("username")
     password = request.data.get("password")
+
+    if not username or not password:
+        return Response({"error": "Usuário e senha são obrigatórios"}, status=400)
+
     user = authenticate(username=username, password=password)
-    if user:
-        return Response({"message": "Login bem-sucedido!"})
-    return Response({"message": "Credenciais inválidas"}, status=401)
+    
+    if user and user.is_active:
+        return Response({"message": "Login bem-sucedido!", "username": user.username}, status=200)
+
+    return Response({"error": "Credenciais inválidas"}, status=401)

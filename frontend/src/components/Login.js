@@ -1,31 +1,23 @@
-import { useState } from "react";
+import React from "react";
+import "./Login.css"; // Arquivo CSS para estilizar a tela
 
 function Login() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const response = await fetch("http://127.0.0.1:8000/api/login/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password }),
-        });
-
-        const data = await response.json();
-        alert(data.message);
-    };
-
-    return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Usuário" required />
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" required />
-                <button type="submit">Entrar</button>
-            </form>
+  return (
+    <div className="login-container">
+      <h2>Login</h2>
+      <form>
+        <div className="input-group">
+          <label>Email:</label>
+          <input type="email" placeholder="Digite seu email" required />
         </div>
-    );
+        <div className="input-group">
+          <label>Senha:</label>
+          <input type="password" placeholder="Digite sua senha" required />
+        </div>
+        <button type="submit">Entrar</button>
+      </form>
+    </div>
+  );
 }
 
 export default Login;

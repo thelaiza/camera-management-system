@@ -24,18 +24,6 @@ function App() {
           <h2>Dados do Backend:</h2>
           <pre>{data ? JSON.stringify(data, null, 2) : "Carregando..."}</pre>
         </div>
-
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
