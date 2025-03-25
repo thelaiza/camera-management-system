@@ -16,14 +16,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Minha Aplicação</h1>
+        <h1>CamIA Manager</h1>
 
         <Login />
 
-        <div>
-          <h2>Dados do Backend:</h2>
-          <pre>{data ? JSON.stringify(data, null, 2) : "Carregando..."}</pre>
-        </div>
       </header>
     </div>
   );

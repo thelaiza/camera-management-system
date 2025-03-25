@@ -1,7 +1,8 @@
 import React from "react";
-import "./Login.css"; // Arquivo CSS para estilizar a tela
+import "./Login.css"; 
 
 function Login() {
+  console.log("Login component renderizado!");
   return (
     <div className="login-container">
       <h2>Login</h2>
