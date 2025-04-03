@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Usuario, Camera
 import json
@@ -25,11 +26,6 @@ def api_login(request):
 # Funções para CRUD de Usuários e Câmeras
 # ========================================
 
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import json
-from django.db import IntegrityError
-from .models import Usuario  # Certifique-se de que o model correto está importado
 
 @csrf_exempt
 def adicionar_usuario(request):
