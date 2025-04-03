@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Usuario, Camera
 import json
+from django.db import connection
 
 # ========================================
 # Função de login 
@@ -56,29 +57,25 @@ def adicionar_usuario(request):
 
 @csrf_exempt
 def adicionar_camera(request):
-    """ Adiciona uma nova câmera ao sistema """
     if request.method == "POST":
         try:
             data = json.loads(request.body)
             nome = data.get("nome")
             localizacao = data.get("localizacao")
-            usuario_id = data.get("usuario_id")
-
+            usuario_id = data.get("usuario_id")  
             if not nome or not localizacao:
-                return JsonResponse({"erro": "Nome e localização são obrigatórios."}, status=400)
-
-            usuario = None
-            if usuario_id:
-                try:
-                    usuario = Usuario.objects.get(id=usuario_id)
-                except ObjectDoesNotExist:
-                    return JsonResponse({"erro": "Usuário não encontrado."}, status=404)
-
-            camera = Camera.objects.create(nome=nome, localizacao=localizacao, usuario=usuario)
-            return JsonResponse({"mensagem": "Câmera adicionada com sucesso!", "id": camera.id}, status=201)
-
+                return JsonResponse({"erro": "Nome e localização são obrigatórios!"}, status=400)
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "INSERT INTO cameras (nome, localizacao, usuario_id) VALUES (%s, %s, %s)",
+                    [nome, localizacao, usuario_id],
+                )
+            return JsonResponse({"mensagem": "Câmera adicionada com sucesso!"}, status=201)
+        except json.JSONDecodeError:
+            return JsonResponse({"erro": "JSON inválido!"}, status=400)
         except Exception as e:
             return JsonResponse({"erro": str(e)}, status=500)
+    return JsonResponse({"erro": "Método não permitido!"}, status=405)
 
 # ========================================
 # Função de verificação da API 
