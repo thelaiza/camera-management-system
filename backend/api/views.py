@@ -26,6 +26,24 @@ def api_login(request):
 # Funções para CRUD de Usuários e Câmeras
 # ========================================
 
+def listar_usuarios(request):
+    if request.method == "GET":
+        try:
+            usuarios = Usuario.objects.all().values("id", "nome", "email")
+            return JsonResponse(list(usuarios), safe=False, status=200)
+        except Exception as e:
+            return JsonResponse({"erro": str(e)}, status=500)
+    return JsonResponse({"erro": "Método não permitido!"}, status=405)
+
+
+def listar_cameras(request):
+    if request.method == "GET":
+        try:
+            cameras = Camera.objects.all().values("id", "nome", "localizacao", "usuario_id", "data_criacao")
+            return JsonResponse(list(cameras), safe=False, status=200)
+        except Exception as e:
+            return JsonResponse({"erro": str(e)}, status=500)
+    return JsonResponse({"erro": "Método não permitido!"}, status=405)
 
 @csrf_exempt
 def adicionar_usuario(request):
@@ -69,6 +87,79 @@ def adicionar_camera(request):
             return JsonResponse({"mensagem": "Câmera adicionada com sucesso!"}, status=201)
         except json.JSONDecodeError:
             return JsonResponse({"erro": "JSON inválido!"}, status=400)
+        except Exception as e:
+            return JsonResponse({"erro": str(e)}, status=500)
+    return JsonResponse({"erro": "Método não permitido!"}, status=405)
+
+@csrf_exempt
+def excluir_usuario(request, id):
+    if request.method == "DELETE":
+        try:
+            usuario = Usuario.objects.get(id=id)
+            usuario.delete()
+            return JsonResponse({"mensagem": "Usuário excluído com sucesso!"}, status=200)
+        except Usuario.DoesNotExist:
+            return JsonResponse({"erro": "Usuário não encontrado."}, status=404)
+        except Exception as e:
+            return JsonResponse({"erro": str(e)}, status=500)
+    return JsonResponse({"erro": "Método não permitido!"}, status=405)
+
+
+@csrf_exempt
+def excluir_camera(request, id):
+    if request.method == "DELETE":
+        try:
+            camera = Camera.objects.get(id=id)
+            camera.delete()
+            return JsonResponse({"mensagem": "Câmera excluída com sucesso!"}, status=200)
+        except Camera.DoesNotExist:
+            return JsonResponse({"erro": "Câmera não encontrada."}, status=404)
+        except Exception as e:
+            return JsonResponse({"erro": str(e)}, status=500)
+    return JsonResponse({"erro": "Método não permitido!"}, status=405)
+
+@csrf_exempt
+def editar_camera(request, camera_id):
+    if request.method == "PUT":
+        try:
+            data = json.loads(request.body)
+            nome = data.get("nome")
+            localizacao = data.get("localizacao")
+            usuario_id = data.get("usuario_id")
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    UPDATE cameras
+                    SET nome = %s, localizacao = %s, usuario_id = %s
+                    WHERE id = %s
+                    """,
+                    [nome, localizacao, usuario_id, camera_id]
+                )
+
+            return JsonResponse({"mensagem": "Câmera atualizada com sucesso!"}, status=200)
+        except Exception as e:
+            return JsonResponse({"erro": str(e)}, status=500)
+    return JsonResponse({"erro": "Método não permitido!"}, status=405)
+
+@csrf_exempt
+def editar_usuario(request, usuario_id):
+    if request.method == "PUT":
+        try:
+            data = json.loads(request.body)
+            nome = data.get("nome")
+            email = data.get("email")
+            senha = data.get("senha")
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    UPDATE usuarios
+                    SET nome = %s, email = %s, senha = %s
+                    WHERE id = %s
+                    """,
+                    [nome, email, senha, usuario_id]
+                )
+
+            return JsonResponse({"mensagem": "Usuário atualizado com sucesso!"}, status=200)
         except Exception as e:
             return JsonResponse({"erro": str(e)}, status=500)
     return JsonResponse({"erro": "Método não permitido!"}, status=405)
