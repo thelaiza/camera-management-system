@@ -1,6 +1,13 @@
 import "./App.css";
 import Login from "./components/Login.js";
 import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
+import CamerasPage from "./pages/CamerasPage";
+import UsuariosPage from "./pages/UsuariosPage";
+import LogsPage from "./pages/LogsPage";
+
 
 function App() {
   const [data, setData] = useState(null);
@@ -17,12 +24,19 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>CamIA Manager</h1>
-
-        <Login />
-
+        <Router>
+        <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/cameras" element={<CamerasPage />} />
+        <Route path="/usuarios" element={<UsuariosPage />} />
+        <Route path="/logs" element={<LogsPage />} />
+      </Routes>
+    </Router>
       </header>
     </div>
   );
 }
+
 
 export default App;

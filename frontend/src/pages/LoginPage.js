@@ -1,12 +1,19 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 
-function Login() {
-  console.log("Login component renderizado!");
+function LoginPage() {
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // simula login com sucesso
+    navigate("/home");
+  };
+
   return (
     <div className="login-container">
       <h2>Login</h2>
-      <form>
+      <form onSubmit={handleLogin}>
         <div className="input-group">
           <label>Email:</label>
           <input type="email" placeholder="Digite seu email" required />
@@ -21,4 +28,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;
