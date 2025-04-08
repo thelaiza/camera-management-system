@@ -1,16 +1,21 @@
-import { Link } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/Home.css";
+import logo from "../assets/logo.png";
 
 function HomePage() {
+  const navigate = useNavigate();
+
   return (
-    <div>
-      <h1>Bem-vindo ao CamIA Manager</h1>
-      <nav>
-        <ul>
-          <li><Link to="/cameras">Gerenciar Câmeras</Link></li>
-          <li><Link to="/usuarios">Gerenciar Usuários</Link></li>
-          <li><Link to="/logs">Ver Logs</Link></li>
-        </ul>
-      </nav>
+    <div className="home-container">
+      <header className="home-header">
+        <img src={logo} alt="Logo" className="logo" />
+      </header>
+      <main className="button-grid">
+        <button onClick={() => navigate("/cameras")}>Câmeras</button>
+        <button onClick={() => navigate("/usuarios")}>Usuários</button>
+        <button onClick={() => navigate("/logs")}>Logs</button>
+      </main>
     </div>
   );
 }

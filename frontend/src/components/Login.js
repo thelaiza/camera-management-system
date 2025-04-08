@@ -1,8 +1,11 @@
 import React from "react";
 import "../styles/Login.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   console.log("Login component renderizado!");
+  
   return (
     <div className="login-container">
       <h2>Login</h2>
@@ -16,6 +19,7 @@ function Login() {
           <input type="password" placeholder="Digite sua senha" required />
         </div>
         <button type="submit">Entrar</button>
+        <button type="button" onClick={() => navigate("/home")}>Entrar</button>
       </form>
     </div>
   );
