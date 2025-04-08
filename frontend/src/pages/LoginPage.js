@@ -15,10 +15,9 @@ function LoginPage() {
     try {
       const res = await axios.post("http://localhost:8000/api/login/", {
         email: email,
-        senha:senha,
+        senha: senha,
       });
 
-      // Armazena o ID ou o token, como preferir
       localStorage.setItem("usuario_id", res.data.id);
       localStorage.setItem("usuario_nome", res.data.nome);
       navigate("/home");
