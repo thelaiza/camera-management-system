@@ -11,16 +11,20 @@ from django.db import connection
 # ========================================
 @csrf_exempt
 def api_login(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         data = json.loads(request.body)
-        email = data.get("email")
-        senha = data.get("senha")
+        email = data.get('email')
+        senha = data.get('senha')
 
         try:
             usuario = Usuario.objects.get(email=email, senha=senha)
-            return JsonResponse({"mensagem": "Login bem-sucedido!", "usuario_id": usuario.id}, status=200)
-        except ObjectDoesNotExist:
-            return JsonResponse({"erro": "Credenciais inválidas."}, status=401)
+            return JsonResponse({
+                'status': 'sucesso',
+                'id': usuario.id,
+                'nome': usuario.nome
+            })
+        except Usuario.DoesNotExist:
+            return JsonResponse({'status': 'erro', 'mensagem': 'Credenciais inválidas'}, status=401)
 
 # ========================================
 # Funções para CRUD de Usuários e Câmeras
