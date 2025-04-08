@@ -1,31 +1,23 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import logo from "../assets/logo.png";
 
-function LoginPage() {
+function Login() {
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // simula login com sucesso
-    navigate("/home");
-  };
-
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <div className="input-group">
-          <label>Email:</label>
-          <input type="email" placeholder="Digite seu email" required />
-        </div>
-        <div className="input-group">
-          <label>Senha:</label>
-          <input type="password" placeholder="Digite sua senha" required />
-        </div>
-        <button type="submit">Entrar</button>
-      </form>
+    <div className="login-page">
+      <div className="login-card">
+        <img src={logo} alt="Logo" className="login-logo" />
+        <input className="login-input" type="text" placeholder="Login" />
+        <input className="login-input" type="password" placeholder="Senha" />
+        <button className="login-button" onClick={() => navigate("/home")}>
+          Entrar
+        </button>
+      </div>
     </div>
   );
 }
 
-export default LoginPage;
+export default Login;

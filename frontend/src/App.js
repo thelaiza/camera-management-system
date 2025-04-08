@@ -1,5 +1,4 @@
 import "./App.css";
-import Login from "./components/Login.js";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
@@ -23,7 +22,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>CamIA Manager</h1>
         <Router>
         <Routes>
         <Route path="/" element={<LoginPage />} />
