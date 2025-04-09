@@ -1,0 +1,139 @@
+/* Header padrão */
+.cameras-header {
+  background-color: #89c2ff;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.logo {
+  height: 70px;
+  max-width: 100%;
+}
+
+/* Botão de voltar */
+.back-button {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  font-size: 24px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Título da seção */
+.cameras-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #7aa9e6;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+.add-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .add-button {
+    background-color: #7aa9e6;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+  }
+  
+
+/* Filtro de status */
+.status-legend {
+  display: flex;
+  gap: 20px;
+  margin: 20px;
+  flex-wrap: wrap;
+}
+
+.status-legend span {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.green { background-color: green; }
+.red { background-color: red; }
+.yellow { background-color: yellow; }
+
+/* Tabela de câmeras */
+.camera-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.camera-table th, .camera-table td {
+  border: 1px solid #ccc;
+  padding: 12px 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.actions {
+  text-align: center;
+}
+
+.edit {
+  color: green;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.delete {
+  color: red;
+  cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .cameras-title {
+    font-size: 22px;
+    text-align: left;
+    margin-left: 10px;
+  }
+
+  .add-button-container {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .status-legend {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10px;
+  }
+
+  .camera-table th,
+  .camera-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+}

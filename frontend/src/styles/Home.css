@@ -11,8 +11,8 @@
   }
   
   .logo {
-    width: 100px;
-    height: auto;
+    height: 70px;
+    max-width: 100%;
   }
   
   .button-grid {
