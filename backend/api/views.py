@@ -31,13 +31,17 @@ def api_login(request):
 # ========================================
 
 def listar_usuarios(request):
-    if request.method == "GET":
-        try:
-            usuarios = Usuario.objects.all().values("id", "nome", "email")
-            return JsonResponse(list(usuarios), safe=False, status=200)
-        except Exception as e:
-            return JsonResponse({"erro": str(e)}, status=500)
-    return JsonResponse({"erro": "Método não permitido!"}, status=405)
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT u.id, u.nome, u.email, COUNT(c.id) AS quantidade_cameras
+                FROM usuarios u
+                LEFT JOIN cameras c ON u.id = c.usuario_id
+                GROUP BY u.id
+            """)
+            colunas = [col[0] for col in cursor.description]
+            usuarios = [dict(zip(colunas, linha)) for linha in cursor.fetchall()]
+        return JsonResponse({'usuarios': usuarios})
 
 
 def listar_cameras(request):
