@@ -44,14 +44,25 @@ def listar_usuarios(request):
         return JsonResponse({'usuarios': usuarios})
 
 
+@csrf_exempt
 def listar_cameras(request):
-    if request.method == "GET":
-        try:
-            cameras = Camera.objects.all().values("id", "nome", "localizacao", "usuario_id", "data_criacao")
-            return JsonResponse(list(cameras), safe=False, status=200)
-        except Exception as e:
-            return JsonResponse({"erro": str(e)}, status=500)
-    return JsonResponse({"erro": "Método não permitido!"}, status=405)
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT id, nome, localizacao, usuario_id, status FROM cameras")
+            rows = cursor.fetchall()
+
+        cameras = []
+        for row in rows:
+            cameras.append({
+                'id': row[0],
+                'nome': row[1],
+                'localizacao': row[2],
+                'usuario_id': row[3],
+                'status': row[4]
+            })
+
+        return JsonResponse(cameras, safe=False)
+
 
 @csrf_exempt
 def adicionar_usuario(request):

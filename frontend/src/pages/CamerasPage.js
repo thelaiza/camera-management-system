@@ -1,4 +1,3 @@
-// frontend/src/pages/CamerasPage.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/CamerasPage.css';
@@ -140,12 +139,7 @@ const CamerasPage = () => {
         <tbody>
           {cameras.map(camera => (
             <tr key={camera.id}>
-              <td>
-                <span className={`dot ${camera.status}`}></span>
-                {camera.status === "instalada" && "Instalada"}
-                {camera.status === "removida" && "Removida"}
-                {camera.status === "pendente" && "Pendente"}
-              </td>
+              <td><span className={`dot ${camera.status}`}></span></td>
               <td>{camera.id}</td>
               <td>{camera.nome}</td>
               <td>{camera.localizacao}</td>
