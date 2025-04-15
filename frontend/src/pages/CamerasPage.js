@@ -1,3 +1,4 @@
+// frontend/src/pages/CamerasPage.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/CamerasPage.css';
@@ -9,34 +10,70 @@ const CamerasPage = () => {
   const [nomeCamera, setNomeCamera] = useState("");
   const [localizacao, setLocalizacao] = useState("");
   const [status, setStatus] = useState("pendente");
+  const [editandoId, setEditandoId] = useState(null);
   const navigate = useNavigate();
 
+  const buscarCameras = async () => {
+    try {
+      const res = await axios.get('http://localhost:8000/api/cameras/');
+      setCameras(res.data);
+    } catch (error) {
+      console.error('Erro ao buscar câmeras:', error);
+    }
+  };
+
   useEffect(() => {
-    axios.get('http://localhost:8000/api/cameras/')
-      .then(response => setCameras(response.data))
-      .catch(error => console.error('Erro ao buscar câmeras:', error));
+    buscarCameras();
   }, []);
 
-  const handleAdicionarCamera = async () => {
-    const usuario_id = localStorage.getItem("usuario_id");
-
-    try {
-      await axios.post("http://localhost:8000/api/cameras/adicionar/", {
-        nome: nomeCamera,
-        localizacao,
-        status,
-        usuario_id,
-      });
-
+  const abrirPopup = (camera = null) => {
+    if (camera) {
+      setEditandoId(camera.id);
+      setNomeCamera(camera.nome);
+      setLocalizacao(camera.localizacao);
+      setStatus(camera.status || "pendente");
+    } else {
+      setEditandoId(null);
       setNomeCamera("");
       setLocalizacao("");
       setStatus("pendente");
-      setMostrarPopup(false);
+    }
+    setMostrarPopup(true);
+  };
 
-      const res = await axios.get("http://localhost:8000/api/cameras/");
-      setCameras(res.data);
+  const salvarCamera = async () => {
+    const usuario_id = localStorage.getItem("usuario_id");
+
+    try {
+      if (editandoId) {
+        await axios.put(`http://localhost:8000/api/cameras/${editandoId}/editar/`, {
+          nome: nomeCamera,
+          localizacao,
+          status,
+          usuario_id,
+        });
+      } else {
+        await axios.post("http://localhost:8000/api/cameras/adicionar/", {
+          nome: nomeCamera,
+          localizacao,
+          status,
+          usuario_id,
+        });
+      }
+
+      await buscarCameras();
+      setMostrarPopup(false);
     } catch (error) {
-      console.error("Erro ao adicionar câmera:", error);
+      console.error("Erro ao salvar câmera:", error);
+    }
+  };
+
+  const deletarCamera = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/cameras/excluir/${id}/`);
+      buscarCameras();
+    } catch (error) {
+      console.error("Erro ao deletar câmera:", error);
     }
   };
 
@@ -49,34 +86,28 @@ const CamerasPage = () => {
 
       {mostrarPopup && (
         <div className="popup-overlay">
-          <div className="popup-content popup-blue">
-            <button className="popup-close" onClick={() => setMostrarPopup(false)}>X</button>
-            <h3>Nova câmera</h3>
+          <div className="popup-content">
+            <h3>{editandoId ? "Editar Câmera" : "Nova Câmera"}</h3>
             <input
               type="text"
-              placeholder="Nome"
+              placeholder="Nome da câmera"
               value={nomeCamera}
               onChange={(e) => setNomeCamera(e.target.value)}
-              className="popup-input"
             />
             <input
               type="text"
-              placeholder="Endereço"
+              placeholder="Localização"
               value={localizacao}
               onChange={(e) => setLocalizacao(e.target.value)}
-              className="popup-input"
             />
-            <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              className="popup-input"
-            >
-              <option value="pendente">Pendente</option>
-              <option value="instalada">Instalada</option>
-              <option value="removida">Removida</option>
+            <select value={status} onChange={(e) => setStatus(e.target.value)}>
+              <option value="instalada">🟢 Instalada</option>
+              <option value="removida">🔴 Removida</option>
+              <option value="pendente">🟡 Pendente</option>
             </select>
             <div className="popup-buttons">
-              <button className="popup-confirm" onClick={handleAdicionarCamera}>Adicionar</button>
+              <button onClick={salvarCamera}>Salvar</button>
+              <button onClick={() => setMostrarPopup(false)}>Cancelar</button>
             </div>
           </div>
         </div>
@@ -86,7 +117,7 @@ const CamerasPage = () => {
         <h2 className="cameras-title">Câmeras</h2>
       </div>
       <div className="add-button-container">
-        <button className="add-button" onClick={() => setMostrarPopup(true)}>Adicionar</button>
+        <button className="add-button" onClick={() => abrirPopup()}>Adicionar</button>
       </div>
 
       <div className="status-legend">
@@ -109,14 +140,19 @@ const CamerasPage = () => {
         <tbody>
           {cameras.map(camera => (
             <tr key={camera.id}>
-              <td><span className={`dot ${camera.status}`}></span></td>
+              <td>
+                <span className={`dot ${camera.status}`}></span>
+                {camera.status === "instalada" && "Instalada"}
+                {camera.status === "removida" && "Removida"}
+                {camera.status === "pendente" && "Pendente"}
+              </td>
               <td>{camera.id}</td>
               <td>{camera.nome}</td>
               <td>{camera.localizacao}</td>
-              <td>{camera.usuario || '-'}</td>
+              <td>{camera.usuario_id || '-'}</td>
               <td className="actions">
-                <span role="button" className="edit">✏️</span>
-                <span role="button" className="delete">❌</span>
+                <span role="button" className="edit" onClick={() => abrirPopup(camera)}>✏️</span>
+                <span role="button" className="delete" onClick={() => deletarCamera(camera.id)}>❌</span>
               </td>
             </tr>
           ))}

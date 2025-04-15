@@ -6,40 +6,78 @@ import { useNavigate } from 'react-router-dom';
 const UsuariosPage = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [mostrarPopup, setMostrarPopup] = useState(false);
+  const [modoEdicao, setModoEdicao] = useState(false);
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
 
-  const buscarUsuarios = () => {
-    axios.get('http://localhost:8000/api/usuarios/')
-      .then(response => {
-        setUsuarios(response.data.usuarios);
-      })
-      .catch(error => {
-        console.error('Erro ao buscar usuários:', error);
-      });
+  const carregarUsuarios = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/usuarios/');
+      setUsuarios(response.data.usuarios);
+    } catch (error) {
+      console.error('Erro ao buscar usuários:', error);
+    }
   };
 
   useEffect(() => {
-    buscarUsuarios();
+    carregarUsuarios();
   }, []);
 
-  const handleAdicionarUsuario = async () => {
-    try {
-      await axios.post("http://localhost:8000/api/usuarios/adicionar/", {
-        nome,
-        email,
-        senha,
-      });
+  const abrirPopupAdicionar = () => {
+    setModoEdicao(false);
+    setNome("");
+    setEmail("");
+    setSenha("");
+    setMostrarPopup(true);
+  };
 
+  const abrirPopupEditar = (usuario) => {
+    setModoEdicao(true);
+    setUsuarioSelecionado(usuario);
+    setNome(usuario.nome);
+    setEmail(usuario.email);
+    setSenha("");
+    setMostrarPopup(true);
+  };
+
+  const handleSalvar = async () => {
+    try {
+      if (modoEdicao && usuarioSelecionado) {
+        await axios.put(`http://localhost:8000/api/usuarios/${usuarioSelecionado.id}/editar/`, {
+          nome,
+          email,
+          senha,
+        });
+      } else {
+        await axios.post("http://localhost:8000/api/usuarios/adicionar/", {
+          nome,
+          email,
+          senha,
+        });
+      }
+
+      setMostrarPopup(false);
       setNome("");
       setEmail("");
       setSenha("");
-      setMostrarPopup(false);
-      buscarUsuarios();
+      setUsuarioSelecionado(null);
+      carregarUsuarios();
     } catch (error) {
-      console.error("Erro ao adicionar usuário:", error);
+      console.error("Erro ao salvar usuário:", error);
+    }
+  };
+
+  const handleExcluir = async (id) => {
+    if (window.confirm("Deseja realmente excluir este usuário?")) {
+      try {
+        await axios.delete(`http://localhost:8000/api/usuarios/excluir/${id}/`);
+        carregarUsuarios();
+      } catch (error) {
+        console.error("Erro ao excluir usuário:", error);
+      }
     }
   };
 
@@ -53,7 +91,7 @@ const UsuariosPage = () => {
       {mostrarPopup && (
         <div className="popup-overlay">
           <div className="popup-content">
-            <h3>Novo Usuário</h3>
+            <h3>{modoEdicao ? "Editar Usuário" : "Novo Usuário"}</h3>
             <input
               type="text"
               placeholder="Nome"
@@ -62,7 +100,7 @@ const UsuariosPage = () => {
             />
             <input
               type="email"
-              placeholder="Email"
+              placeholder="E-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -73,7 +111,7 @@ const UsuariosPage = () => {
               onChange={(e) => setSenha(e.target.value)}
             />
             <div className="popup-buttons">
-              <button onClick={handleAdicionarUsuario}>Salvar</button>
+              <button onClick={handleSalvar}>Salvar</button>
               <button onClick={() => setMostrarPopup(false)}>Cancelar</button>
             </div>
           </div>
@@ -83,7 +121,7 @@ const UsuariosPage = () => {
       <h2 className="usuarios-title">Usuários</h2>
 
       <div className="add-button-container">
-        <button className="add-button" onClick={() => setMostrarPopup(true)}>Adicionar</button>
+        <button className="add-button" onClick={abrirPopupAdicionar}>Adicionar</button>
       </div>
 
       <table className="usuarios-table">
@@ -97,15 +135,15 @@ const UsuariosPage = () => {
           </tr>
         </thead>
         <tbody>
-          {Array.isArray(usuarios) && usuarios.map(usuario => (
+          {usuarios.map((usuario) => (
             <tr key={usuario.id}>
               <td>{usuario.id}</td>
               <td>{usuario.nome}</td>
               <td>{usuario.email}</td>
               <td>{usuario.quantidade_cameras}</td>
               <td className="actions">
-                <span role="button" className="edit">✏️</span>
-                <span role="button" className="delete">❌</span>
+                <span role="button" className="edit" onClick={() => abrirPopupEditar(usuario)}>✏️</span>
+                <span role="button" className="delete" onClick={() => handleExcluir(usuario.id)}>❌</span>
               </td>
             </tr>
           ))}

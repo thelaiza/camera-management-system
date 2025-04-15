@@ -84,20 +84,22 @@ def adicionar_camera(request):
             data = json.loads(request.body)
             nome = data.get("nome")
             localizacao = data.get("localizacao")
-            usuario_id = data.get("usuario_id")  
+            usuario_id = data.get("usuario_id")
+            status = data.get("status", "pendente")  # 🆕 pega status ou padrão 'pendente'
+
             if not nome or not localizacao:
                 return JsonResponse({"erro": "Nome e localização são obrigatórios!"}, status=400)
+
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO cameras (nome, localizacao, usuario_id) VALUES (%s, %s, %s)",
-                    [nome, localizacao, usuario_id],
+                    "INSERT INTO cameras (nome, localizacao, usuario_id, status) VALUES (%s, %s, %s, %s)",
+                    [nome, localizacao, usuario_id, status],
                 )
             return JsonResponse({"mensagem": "Câmera adicionada com sucesso!"}, status=201)
-        except json.JSONDecodeError:
-            return JsonResponse({"erro": "JSON inválido!"}, status=400)
         except Exception as e:
             return JsonResponse({"erro": str(e)}, status=500)
     return JsonResponse({"erro": "Método não permitido!"}, status=405)
+
 
 @csrf_exempt
 def excluir_usuario(request, id):
@@ -134,20 +136,23 @@ def editar_camera(request, camera_id):
             nome = data.get("nome")
             localizacao = data.get("localizacao")
             usuario_id = data.get("usuario_id")
+            status = data.get("status", "pendente")  # 🆕
+
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
                     UPDATE cameras
-                    SET nome = %s, localizacao = %s, usuario_id = %s
+                    SET nome = %s, localizacao = %s, usuario_id = %s, status = %s
                     WHERE id = %s
                     """,
-                    [nome, localizacao, usuario_id, camera_id]
+                    [nome, localizacao, usuario_id, status, camera_id]
                 )
 
             return JsonResponse({"mensagem": "Câmera atualizada com sucesso!"}, status=200)
         except Exception as e:
             return JsonResponse({"erro": str(e)}, status=500)
     return JsonResponse({"erro": "Método não permitido!"}, status=405)
+
 
 @csrf_exempt
 def editar_usuario(request, usuario_id):
