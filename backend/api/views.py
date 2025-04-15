@@ -96,7 +96,7 @@ def adicionar_camera(request):
             nome = data.get("nome")
             localizacao = data.get("localizacao")
             usuario_id = data.get("usuario_id")
-            status = data.get("status", "pendente")  # 🆕 pega status ou padrão 'pendente'
+            status = data.get("status", "pendente")  
 
             if not nome or not localizacao:
                 return JsonResponse({"erro": "Nome e localização são obrigatórios!"}, status=400)
@@ -147,7 +147,7 @@ def editar_camera(request, camera_id):
             nome = data.get("nome")
             localizacao = data.get("localizacao")
             usuario_id = data.get("usuario_id")
-            status = data.get("status", "pendente")  # 🆕
+            status = data.get("status", "pendente")  
 
             with connection.cursor() as cursor:
                 cursor.execute(
