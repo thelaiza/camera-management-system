@@ -9,7 +9,6 @@ O sistema registrará as ações realizadas, como a adição e remoção de câm
 - **Cadastro de Câmeras:** Adicionar novas câmeras com nome, localização e outros dados relevantes.  
 - **Remoção de Câmeras:** Excluir câmeras cadastradas.  
 - **Logs de Transações:** Registrar ações como adição e remoção de câmeras, com data, hora e usuário responsável.  
-- **Visualização por Usuário:** Cada usuário verá apenas as câmeras associadas ao seu login.  
 - **Autenticação Segura:** Controle de acesso por login.  
 
 ## Mais detalhes sobre o projeto
