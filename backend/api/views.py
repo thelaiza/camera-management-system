@@ -98,10 +98,6 @@ def adicionar_camera(request):
             usuario_id = data.get("usuario_id")
             status = data.get("status", "pendente")  
 
-            # Validação de campos obrigatórios
-            if not nome or not localizacao or not usuario_id:
-                return JsonResponse({"erro": "Nome, localização e ID do usuário são obrigatórios!"}, status=400)
-
             with connection.cursor() as cursor:
                 cursor.execute(
                     "INSERT INTO cameras (nome, localizacao, usuario_id, status) VALUES (%s, %s, %s, %s)",
