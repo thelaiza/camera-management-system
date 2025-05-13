@@ -1,0 +1,62 @@
+.logs-header {
+    background-color: #89c2ff;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .logo {
+    height: 70px;
+    max-width: 100%;
+  }
+  
+  .back-button {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    font-size: 24px;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .logs-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #7aa9e6;
+    margin-top: 30px;
+    margin-left: 20px;
+  }
+  
+  .logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  
+  .logs-table th, .logs-table td {
+    border: 1px solid #ccc;
+    padding: 12px 10px;
+    text-align: left;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 768px) {
+    .logs-title {
+      font-size: 22px;
+      text-align: left;
+      margin-left: 10px;
+    }
+  
+    .logs-table th,
+    .logs-table td {
+      font-size: 12px;
+      padding: 8px;
+    }
+  }
