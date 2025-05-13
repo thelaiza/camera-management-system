@@ -98,8 +98,9 @@ def adicionar_camera(request):
             usuario_id = data.get("usuario_id")
             status = data.get("status", "pendente")  
 
-            if not nome or not localizacao:
-                return JsonResponse({"erro": "Nome e localização são obrigatórios!"}, status=400)
+            # Validação de campos obrigatórios
+            if not nome or not localizacao or not usuario_id:
+                return JsonResponse({"erro": "Nome, localização e ID do usuário são obrigatórios!"}, status=400)
 
             with connection.cursor() as cursor:
                 cursor.execute(
@@ -110,7 +111,6 @@ def adicionar_camera(request):
         except Exception as e:
             return JsonResponse({"erro": str(e)}, status=500)
     return JsonResponse({"erro": "Método não permitido!"}, status=405)
-
 
 @csrf_exempt
 def excluir_usuario(request, id):

@@ -8,7 +8,7 @@ const CamerasPage = () => {
   const [mostrarPopup, setMostrarPopup] = useState(false);
   const [nomeCamera, setNomeCamera] = useState("");
   const [localizacao, setLocalizacao] = useState("");
-  const [status, setStatus] = useState("pendente");
+  const [status, setStatus] = useState("pendente");  // Default para 'pendente'
   const [editandoId, setEditandoId] = useState(null);
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ const CamerasPage = () => {
       setEditandoId(camera.id);
       setNomeCamera(camera.nome);
       setLocalizacao(camera.localizacao);
-      setStatus(camera.status || "pendente");
+      setStatus(camera.status || "pendente"); 
     } else {
       setEditandoId(null);
       setNomeCamera("");
@@ -43,20 +43,24 @@ const CamerasPage = () => {
   const salvarCamera = async () => {
     const usuario_id = localStorage.getItem("usuario_id");
 
+    if (!usuario_id) {
+      alert("Usuário não autenticado. Faça login novamente.");
+      navigate("/login");
+      return;
+    }
+
     try {
       if (editandoId) {
         await axios.put(`http://localhost:8000/api/cameras/${editandoId}/editar/`, {
           nome: nomeCamera,
           localizacao,
           status,
-          usuario_id,
         });
       } else {
         await axios.post("http://localhost:8000/api/cameras/adicionar/", {
           nome: nomeCamera,
           localizacao,
           status,
-          usuario_id,
         });
       }
 
@@ -64,6 +68,7 @@ const CamerasPage = () => {
       setMostrarPopup(false);
     } catch (error) {
       console.error("Erro ao salvar câmera:", error);
+      alert("Erro ao salvar câmera. Verifique os dados e tente novamente.");
     }
   };
 
@@ -73,6 +78,7 @@ const CamerasPage = () => {
       buscarCameras();
     } catch (error) {
       console.error("Erro ao deletar câmera:", error);
+      alert("Erro ao deletar câmera. Tente novamente.");
     }
   };
 

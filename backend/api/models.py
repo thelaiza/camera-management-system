@@ -15,7 +15,9 @@ class Camera(models.Model):
     nome = models.CharField(max_length=100, null=False)
     localizacao = models.CharField(max_length=150, null=False)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True, blank=True)
-    data_criacao = models.DateTimeField(auto_now_add=True)
+    data_criacao = models.DateTimeField(auto_now_add=True),
+    status = models.CharField(max_length=20, default='pendente')  
+
 
     class Meta:
         managed = False
