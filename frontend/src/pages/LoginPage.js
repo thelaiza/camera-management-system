@@ -17,16 +17,20 @@ function LoginPage() {
         email: email,
         senha: senha,
       });
-
-      localStorage.setItem("usuario_id", res.data.id);
+  
+      // Salvando no LocalStorage
+      localStorage.setItem("usuario_id", res.data.usuario_id);
       localStorage.setItem("usuario_nome", res.data.nome);
+      localStorage.setItem("access_token", res.data.access);
+      localStorage.setItem("refresh_token", res.data.refresh);
+  
       navigate("/home");
     } catch (err) {
       console.error("Erro no login:", err.response?.data || err.message);
       setErro("Login inválido. Tente novamente.");
     }
   };
-
+  
   return (
     <div className="login-page">
       <div className="login-card">
