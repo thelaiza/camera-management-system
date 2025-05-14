@@ -31,22 +31,23 @@
   margin-left: 20px;
 }
 
-.add-button-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-top: 20px;
-}
-
-.add-button {
-  background-color: #7aa9e6;
-  color: white;
-  border: none;
-  padding: 10px 25px;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
-}
+  .add-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .add-button {
+    background-color: #7aa9e6;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+  }
 
 .status-legend {
   display: flex;
