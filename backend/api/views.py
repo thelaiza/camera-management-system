@@ -90,23 +90,27 @@ def adicionar_usuario(request):
 
 @csrf_exempt
 def adicionar_camera(request):
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-            nome = data.get("nome")
-            localizacao = data.get("localizacao")
-            usuario_id = data.get("usuario_id")
-            status = data.get("status", "pendente")  
+    if request.method == 'POST':
+        usuario_id = request.headers.get('User-Id')
+        if not usuario_id:
+            return JsonResponse({'error': 'Usuário não autenticado'}, status=401)
 
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "INSERT INTO cameras (nome, localizacao, usuario_id, status) VALUES (%s, %s, %s, %s)",
-                    [nome, localizacao, usuario_id, status],
-                )
-            return JsonResponse({"mensagem": "Câmera adicionada com sucesso!"}, status=201)
-        except Exception as e:
-            return JsonResponse({"erro": str(e)}, status=500)
-    return JsonResponse({"erro": "Método não permitido!"}, status=405)
+        data = json.loads(request.body)
+        nome = data.get('nome')
+        localizacao = data.get('localizacao')
+        status = data.get('status', 'pendente')
+
+        if not nome or not localizacao:
+            return JsonResponse({'error': 'Nome e localização são obrigatórios'}, status=400)
+
+        camera = Camera.objects.create(
+            nome=nome,
+            localizacao=localizacao,
+            status=status,
+            usuario_id=usuario_id
+        )
+        return JsonResponse({'success': True, 'id': camera.id})
+
 
 @csrf_exempt
 def excluir_usuario(request, id):
@@ -137,28 +141,31 @@ def excluir_camera(request, id):
 
 @csrf_exempt
 def editar_camera(request, camera_id):
-    if request.method == "PUT":
+    if request.method == 'PUT':
+        usuario_id = request.headers.get('User-Id')
+        if not usuario_id:
+            return JsonResponse({'error': 'Usuário não autenticado'}, status=401)
+
         try:
-            data = json.loads(request.body)
-            nome = data.get("nome")
-            localizacao = data.get("localizacao")
-            usuario_id = data.get("usuario_id")
-            status = data.get("status", "pendente")  
+            camera = Camera.objects.get(id=camera_id)
+        except Camera.DoesNotExist:
+            return JsonResponse({'error': 'Câmera não encontrada'}, status=404)
 
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    """
-                    UPDATE cameras
-                    SET nome = %s, localizacao = %s, usuario_id = %s, status = %s
-                    WHERE id = %s
-                    """,
-                    [nome, localizacao, usuario_id, status, camera_id]
-                )
+        data = json.loads(request.body)
+        nome = data.get('nome')
+        localizacao = data.get('localizacao')
+        status = data.get('status', 'pendente')
 
-            return JsonResponse({"mensagem": "Câmera atualizada com sucesso!"}, status=200)
-        except Exception as e:
-            return JsonResponse({"erro": str(e)}, status=500)
-    return JsonResponse({"erro": "Método não permitido!"}, status=405)
+        if not nome or not localizacao:
+            return JsonResponse({'error': 'Nome e localização são obrigatórios'}, status=400)
+
+        camera.nome = nome
+        camera.localizacao = localizacao
+        camera.status = status
+        camera.usuario_id = usuario_id
+        camera.save()
+
+        return JsonResponse({'success': True})
 
 
 @csrf_exempt
