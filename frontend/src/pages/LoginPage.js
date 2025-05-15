@@ -19,7 +19,7 @@ function LoginPage() {
       });
   
       // Salvando no LocalStorage
-      localStorage.setItem("usuario_id", res.data.usuario_id);
+      localStorage.setItem("user_id", res.data.id);
       localStorage.setItem("usuario_nome", res.data.nome);
       localStorage.setItem("access_token", res.data.access);
       localStorage.setItem("refresh_token", res.data.refresh);

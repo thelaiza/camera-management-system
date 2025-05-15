@@ -91,25 +91,26 @@ def adicionar_usuario(request):
 @csrf_exempt
 def adicionar_camera(request):
     if request.method == 'POST':
-        usuario_id = request.headers.get('User-Id')
-        if not usuario_id:
-            return JsonResponse({'error': 'Usuário não autenticado'}, status=401)
+        try:
+            data = json.loads(request.body)
+            nome = data.get('nome')
+            localizacao = data.get('localizacao')
+            status = data.get('status', 'pendente')
+            usuario_id = data.get('usuario_id')
 
-        data = json.loads(request.body)
-        nome = data.get('nome')
-        localizacao = data.get('localizacao')
-        status = data.get('status', 'pendente')
+            if not nome or not localizacao or not usuario_id:
+                return JsonResponse({'error': 'Todos os campos são obrigatórios'}, status=400)
 
-        if not nome or not localizacao:
-            return JsonResponse({'error': 'Nome e localização são obrigatórios'}, status=400)
-
-        camera = Camera.objects.create(
-            nome=nome,
-            localizacao=localizacao,
-            status=status,
-            usuario_id=usuario_id
-        )
-        return JsonResponse({'success': True, 'id': camera.id})
+            camera = Camera.objects.create(
+                nome=nome,
+                localizacao=localizacao,
+                status=status,
+                usuario_id=usuario_id
+            )
+            return JsonResponse({'success': True, 'id': camera.id}, status=201)
+        except Exception as e:
+            print("Erro ao adicionar câmera:", e)
+            return JsonResponse({'error': 'Erro ao adicionar câmera'}, status=500)
 
 
 @csrf_exempt
@@ -142,30 +143,29 @@ def excluir_camera(request, id):
 @csrf_exempt
 def editar_camera(request, camera_id):
     if request.method == 'PUT':
-        usuario_id = request.headers.get('User-Id')
-        if not usuario_id:
-            return JsonResponse({'error': 'Usuário não autenticado'}, status=401)
-
         try:
+            data = json.loads(request.body)
+            usuario_id = data.get('usuario_id')
+            nome = data.get('nome')
+            localizacao = data.get('localizacao')
+            status = data.get('status', 'pendente')
+
+            if not usuario_id or not nome or not localizacao:
+                return JsonResponse({'error': 'Usuário, nome e localização são obrigatórios'}, status=400)
+
             camera = Camera.objects.get(id=camera_id)
+            camera.nome = nome
+            camera.localizacao = localizacao
+            camera.status = status
+            camera.usuario_id = usuario_id
+            camera.save()
+
+            return JsonResponse({'success': True})
         except Camera.DoesNotExist:
             return JsonResponse({'error': 'Câmera não encontrada'}, status=404)
-
-        data = json.loads(request.body)
-        nome = data.get('nome')
-        localizacao = data.get('localizacao')
-        status = data.get('status', 'pendente')
-
-        if not nome or not localizacao:
-            return JsonResponse({'error': 'Nome e localização são obrigatórios'}, status=400)
-
-        camera.nome = nome
-        camera.localizacao = localizacao
-        camera.status = status
-        camera.usuario_id = usuario_id
-        camera.save()
-
-        return JsonResponse({'success': True})
+        except Exception as e:
+            print("Erro ao editar câmera:", e)
+            return JsonResponse({'error': 'Erro ao editar câmera'}, status=500)
 
 
 @csrf_exempt

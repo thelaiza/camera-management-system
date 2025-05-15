@@ -45,36 +45,30 @@ const CamerasPage = () => {
 
   const handleSalvar = async () => {
   try {
-    const usuario_id = localStorage.getItem("usuario_id");
-    if (!usuario_id) {
+    const usuario_id = localStorage.getItem("user_id");
+
+    if (!usuario_id || usuario_id === "undefined") {
       alert("Usuário não autenticado. Faça login novamente.");
-      navigate("/login");
+      navigate("/");
       return;
     }
+
+    const payload = {
+      nome,
+      localizacao,
+      status,
+      usuario_id: Number(usuario_id)  // Envia o ID como número
+    };
 
     if (modoEdicao && cameraSelecionada) {
       await axios.put(
         `http://localhost:8000/api/cameras/${cameraSelecionada.id}/editar/`,
-        {
-          nome,
-          localizacao,
-          status
-        },
-        {
-          headers: { 'User-Id': usuario_id }
-        }
+        payload
       );
     } else {
       await axios.post(
         "http://localhost:8000/api/cameras/adicionar/",
-        {
-          nome,
-          localizacao,
-          status
-        },
-        {
-          headers: { 'User-Id': usuario_id }
-        }
+        payload
       );
     }
 
