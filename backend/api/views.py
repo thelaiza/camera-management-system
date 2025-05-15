@@ -71,7 +71,7 @@ def adicionar_usuario(request):
             data = json.loads(request.body)
             nome = data.get("nome")
             email = data.get("email")
-            senha = data.get("senha")  # Aqui você pode adicionar um hash na senha
+            senha = data.get("senha")  
 
             if not nome or not email or not senha:
                 return JsonResponse({"erro": "Todos os campos são obrigatórios!"}, status=400)

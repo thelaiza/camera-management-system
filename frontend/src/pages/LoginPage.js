@@ -18,7 +18,6 @@ function LoginPage() {
         senha: senha,
       });
   
-      // Salvando no LocalStorage
       localStorage.setItem("user_id", res.data.id);
       localStorage.setItem("usuario_nome", res.data.nome);
       localStorage.setItem("access_token", res.data.access);

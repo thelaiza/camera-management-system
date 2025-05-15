@@ -57,7 +57,7 @@ const CamerasPage = () => {
       nome,
       localizacao,
       status,
-      usuario_id: Number(usuario_id)  // Envia o ID como número
+      usuario_id: Number(usuario_id)  
     };
 
     if (modoEdicao && cameraSelecionada) {

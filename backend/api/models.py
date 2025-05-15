@@ -7,7 +7,7 @@ class Usuario(models.Model):
     senha = models.CharField(max_length=255, null=False)
 
     class Meta:
-        managed = False  # ⚠️ Isso impede o Django de criar/modificar a tabela no banco
+        managed = False 
         db_table = "usuarios"
 
 class Camera(models.Model):
