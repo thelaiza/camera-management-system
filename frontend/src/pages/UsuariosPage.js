@@ -46,16 +46,18 @@ const UsuariosPage = () => {
   const handleSalvar = async () => {
     try {
       if (modoEdicao && usuarioSelecionado) {
-        await axios.put(`http://localhost:8000/api/usuarios/${usuarioSelecionado.id}/editar/`, {
+        await axios.put(`http://localhost:8000/api/usuarios/editar/${usuarioSelecionado.id}/`, {
           nome,
           email,
           senha,
         });
       } else {
+        const autor_id = localStorage.getItem("user_id");
         await axios.post("http://localhost:8000/api/usuarios/adicionar/", {
           nome,
           email,
           senha,
+          autor_id: Number(autor_id)
         });
       }
 
@@ -71,9 +73,13 @@ const UsuariosPage = () => {
   };
 
   const handleExcluir = async (id) => {
+    const autor_id = localStorage.getItem("user_id");
     if (window.confirm("Deseja realmente excluir este usuário?")) {
       try {
-        await axios.delete(`http://localhost:8000/api/usuarios/excluir/${id}/`);
+        await axios.delete(`http://localhost:8000/api/usuarios/excluir/${id}/`, { 
+            headers: { 'Content-Type': 'application/json' },
+            data: { autor_id: Number(autor_id) } 
+        });
         carregarUsuarios();
       } catch (error) {
         console.error("Erro ao excluir usuário:", error);

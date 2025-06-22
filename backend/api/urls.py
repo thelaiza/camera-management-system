@@ -1,7 +1,8 @@
 from django.urls import path
 from .token import CustomLoginView
+from . import views
 from .views import (api_home, api_login, adicionar_usuario, adicionar_camera, excluir_usuario, excluir_camera, listar_cameras, 
-                    listar_usuarios, editar_camera, editar_usuario)
+                    listar_usuarios, editar_camera, editar_usuario, listar_logs)
 
 urlpatterns = [
     path("api/", api_home, name="api_home"),
@@ -15,4 +16,5 @@ urlpatterns = [
     path("usuarios/<int:usuario_id>/editar/", editar_usuario, name="editar_usuario"),
     path("cameras/<int:camera_id>/editar/", editar_camera, name="editar_camera"),
     path("login/", CustomLoginView.as_view(), name="token_login"),
+    path('logs/', views.listar_logs, name='listar_logs'),
 ]

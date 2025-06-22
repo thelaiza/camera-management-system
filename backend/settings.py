@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import pymysql
+import dj_database_url
+import os
 pymysql.install_as_MySQLdb()
 from datetime import timedelta
 from corsheaders.defaults import default_headers
@@ -87,17 +89,13 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sistema_cameras',  
-        'USER': 'root',  
-        'PASSWORD': '12345', 
-        'HOST': 'localhost', 
-        'PORT': '3306', 
-    }
+    'default': dj_database_url.config(
+        default='postgres://uc1d7c33rol0ai:p2226f5565accc54c3e667709fb7fc30f6e6298b2015b52cbe2808466fba5e7f1@ca8lne8pi75f88.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/demu7u61dqmqeh',
+        conn_max_age=600
+    )
 }
+
 
 
 # Password validation
