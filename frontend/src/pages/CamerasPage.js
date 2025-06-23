@@ -44,50 +44,53 @@ const CamerasPage = () => {
   };
 
   const handleSalvar = async () => {
-  try {
-    const usuario_id = localStorage.getItem("user_id");
+    try {
+      const usuario_id = localStorage.getItem("user_id");
 
-    if (!usuario_id || usuario_id === "undefined") {
-      alert("Usuário não autenticado. Faça login novamente.");
-      navigate("/");
-      return;
+      if (!usuario_id || usuario_id === "undefined") {
+        alert("Usuário não autenticado. Faça login novamente.");
+        navigate("/");
+        return;
+      }
+
+      const payload = {
+        nome,
+        localizacao,
+        status,
+        usuario_id: Number(usuario_id)
+      };
+
+      if (modoEdicao && cameraSelecionada) {
+        await axios.put(
+          `http://localhost:8000/api/cameras/${cameraSelecionada.id}/editar/`,
+          payload
+        );
+      } else {
+        await axios.post(
+          "http://localhost:8000/api/cameras/adicionar/",
+          payload
+        );
+      }
+
+      setMostrarPopup(false);
+      setNome("");
+      setLocalizacao("");
+      setStatus("pendente");
+      setCameraSelecionada(null);
+      carregarCameras();
+    } catch (error) {
+      console.error("Erro ao salvar câmera:", error);
     }
-
-    const payload = {
-      nome,
-      localizacao,
-      status,
-      usuario_id: Number(usuario_id)  
-    };
-
-    if (modoEdicao && cameraSelecionada) {
-      await axios.put(
-        `http://localhost:8000/api/cameras/${cameraSelecionada.id}/editar/`,
-        payload
-      );
-    } else {
-      await axios.post(
-        "http://localhost:8000/api/cameras/adicionar/",
-        payload
-      );
-    }
-
-    setMostrarPopup(false);
-    setNome("");
-    setLocalizacao("");
-    setStatus("pendente");
-    setCameraSelecionada(null);
-    carregarCameras();
-  } catch (error) {
-    console.error("Erro ao salvar câmera:", error);
-  }
-};
-
+  };
 
   const handleExcluir = async (id) => {
+    const autor_id = localStorage.getItem("user_id");
     if (window.confirm("Deseja realmente excluir esta câmera?")) {
       try {
-        await axios.delete(`http://localhost:8000/api/cameras/excluir/${id}/`);
+        await axios.delete(`http://localhost:8000/api/cameras/excluir/${id}/`, {
+            headers: { 'Content-Type': 'application/json' },
+            data: { autor_id: Number(autor_id) }
+        });
         carregarCameras();
       } catch (error) {
         console.error("Erro ao excluir câmera:", error);

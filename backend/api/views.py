@@ -63,8 +63,8 @@ def editar_usuario(request, usuario_id):
         try:
             data = json.loads(request.body)
             usuario = Usuario.objects.get(id=usuario_id)
-            autor_acao_id = data.get('autor_id', usuario_id) 
-            autor_acao = Usuario.objects.get(id=autor_acao_id)
+            autor_id = data.get('autor_id', usuario_id) 
+            autor_acao = Usuario.objects.get(id=autor_id)
 
             if "nome" in data:
                 usuario.nome = data.get("nome")
@@ -177,6 +177,8 @@ def excluir_camera(request, id):
             return JsonResponse({"mensagem": "Câmera excluída com sucesso!"}, status=200)
         except Camera.DoesNotExist:
             return JsonResponse({"erro": "Câmera não encontrada."}, status=404)
+        except Usuario.DoesNotExist:
+            return JsonResponse({"erro": "Autor da ação não encontrado."}, status=404)
         except Exception as e:
             return JsonResponse({"erro": str(e)}, status=500)
     return JsonResponse({"erro": "Método não permitido!"}, status=405)
@@ -218,4 +220,3 @@ def listar_logs(request):
         logs_list = list(logs.values('id', 'acao', 'data_hora', 'usuario_id', 'camera_id'))
         return JsonResponse(logs_list, safe=False)
     return JsonResponse({"erro": "Método não permitido!"}, status=405)
-
