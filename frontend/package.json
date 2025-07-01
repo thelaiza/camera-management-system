@@ -39,7 +39,7 @@
   },
   "jest": {
     "transformIgnorePatterns": [
-      "node_modules/(?!(react-router-dom)/)"
+      "node_modules/(?!(axios|react-router-dom)/)"
     ]
   }
 }

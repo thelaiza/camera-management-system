@@ -16,8 +16,7 @@ const CamerasPage = () => {
   const carregarCameras = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/cameras/');
-      setCameras(response.data);
-    } catch (error) {
+      setCameras(response.data.cameras);    } catch (error) {
       console.error('Erro ao buscar câmeras:', error);
     }
   };
